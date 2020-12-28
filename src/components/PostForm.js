@@ -4,8 +4,6 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 import {createPost} from "../redux/postActions";
-import { showAlert } from "../redux/appActions";
-import Alert from "./Alert";
 
 class PostForm extends React.Component {
     constructor(props) {
@@ -21,8 +19,6 @@ class PostForm extends React.Component {
         const {title} = this.state;
 
         if (!title.trim()) {
-            // return this.props.showAlert('Title is empty');
-
             return toast.info("Title is empty", {
                 position: toast.POSITION.TOP_LEFT
             });
@@ -49,7 +45,6 @@ class PostForm extends React.Component {
         return (
             <form onSubmit={this.submitHandler}>
                 <ToastContainer autoClose={2000}/>
-                { this.props.alert && <Alert message={this.props.alert}/> }
                 <div className={'form-group'}>
                     <label htmlFor="title">Title</label>
                     <input
@@ -69,11 +64,6 @@ class PostForm extends React.Component {
 
 const mapDispatchToProps = {
     createPost,
-    showAlert
 }
 
-const mapStateToProps = state => ({
-    alert: state.app.alert
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(PostForm);
+export default connect(null, mapDispatchToProps)(PostForm);

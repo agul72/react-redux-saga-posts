@@ -30,3 +30,4 @@ export function hideAlert() {
         type: HIDE_ALERT
     }
 }
+

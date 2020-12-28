@@ -1,6 +1,7 @@
 import {takeEvery, put, call} from 'redux-saga/effects';
 import {FETCH_POSTS, REQUEST_POSTS} from "./types";
-import {hideLoader, showAlert, showLoader} from "./appActions";
+import {hideLoader, showLoader} from "./appActions";
+import {toast} from "react-toastify";
 
 export function* sagaWatcher() {
     yield takeEvery(REQUEST_POSTS, sagaWorker);
@@ -13,11 +14,11 @@ export function* sagaWorker() {
         yield put({type: FETCH_POSTS, payload});
         yield put(hideLoader());
     } catch (e) {
-        yield put(showAlert(e.message, 3000));
+        yield toast.error(e.message, {
+            position: toast.POSITION.TOP_LEFT
+        });
         yield put(hideLoader());
     }
-
-
 }
 
 async function fetchPosts() {
